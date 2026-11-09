@@ -1,0 +1,7 @@
+# Shell scripts must keep LF endings. Checked out with CRLF, bash on Windows fails
+# with "bad interpreter: No such file or directory", which is a confusing way to
+# discover a line-ending problem.
+* text=auto eol=lf
+
+*.png binary
+*.pdf binary

@@ -1,118 +1,130 @@
 % ============================================================
-%  CV CONTENT. Copy this file to config.tex and edit it.
+%  CV CONTENT. Copy this file to config.tex and replace it with your own.
 %
 %    cp config.example.tex config.tex
 %
-%  config.tex is gitignored, so your personal details never leave
-%  your machine by accident. See the Privacy section of README.md
-%  if you want to version your own CV in a private repository.
+%  config.tex is gitignored, so your details never leave your machine by
+%  accident. See the Privacy section of README.md if you want to version
+%  your own CV in a private repository.
 %
-%  main.tex and cover_letter.tex are layout only. Everything a
-%  human reads is in this file, which is the only file you edit
-%  per job application.
+%  main.tex and cover_letter.tex are layout only. Everything a human reads
+%  is here, and this is the only file you edit per application.
+%
+%  The sample content below is fictional. It is written to show the bullet
+%  style that works: lead with a verb, name the technology, end with the
+%  outcome rather than the activity, and stop at two lines.
 % ============================================================
 
 % ---- Personal ----
-\newcommand{\cvName}{Your Name}
-\newcommand{\cvTitle}{Your Job Title}
-\newcommand{\cvEmail}{you@example.com}
-\newcommand{\cvPhone}{+00 000 0000}
-\newcommand{\cvLocation}{City, Country}
-\newcommand{\cvGithub}{your-github-username}
-\newcommand{\cvLinkedin}{your-linkedin-slug}
-\newcommand{\cvPortfolio}{example.com}
+\newcommand{\cvName}{Jane Doe}
+\newcommand{\cvTitle}{Senior Software Engineer}
+\newcommand{\cvEmail}{jane.doe@example.com}
+\newcommand{\cvPhone}{+44 20 7946 0958}
+\newcommand{\cvLocation}{London, United Kingdom}
+\newcommand{\cvGithub}{jane-doe}
+\newcommand{\cvLinkedin}{jane-doe}
+\newcommand{\cvPortfolio}{janedoe.example.com}
 
 % ---- Summary (tailor per job) ----
-% Three or four lines. Mirror the language of the job post, but only
-% claim what the rest of the CV actually backs up.
+% Three or four lines. Mirror the language of the job post, but claim only what
+% the rest of the CV backs up.
 \newcommand{\cvSummary}{%
-One paragraph on who you are professionally: years of experience, the stack you
-work in, the domain you work in, and anything you are currently studying. Keep it
-to three or four lines so the first screen of the page is not all prose.}
+Senior Software Engineer with five years of experience building payment and billing
+systems for regulated healthcare providers. Backend focus in Java and Spring Boot on a
+microservices platform, with production ownership of PostgreSQL, Kafka and Kubernetes.
+Comfortable across the stack, having delivered the Angular front end for two of those
+services.}
 
 % ---- Experience (tailor per job) ----
 % \role{Title}{Dates}{Organisation}{Location}
-% \sub{Heading} starts a sub-section inside a role, for a project or a team.
+% \sub{Heading} starts a sub-section inside a role, for a product or a team.
 \newcommand{\cvExperience}{%
-  \role{Your Job Title}{Mon 20XX to Present}{Company Name}{City, Country}
-  {\small Previous title at the same company, Mon 20XX to Mon 20XX. One short
-   clause of context if the company is not well known.}\par
-  \sub{Team or Product Name (Key, Technologies, Here)}
+  \role{Senior Software Engineer}{Mar 2024 to Present}{Northwind Health}{London, United Kingdom}
+  {\small Software Engineer, Aug 2021 to Mar 2024. Billing platform used by 40 private clinics.}\par
+  \sub{Billing and Claims (Java, Spring Boot, PostgreSQL, Kafka)}
   \begin{itemize}
-    \item What you build and who uses it. Lead with the verb, name the technology,
-          and end with the outcome rather than the task.
-    \item A second bullet covering a different kind of work: an API, a data model,
-          a migration, a piece of production support.
-    \item Keep each bullet to two lines. Anything longer stops being scanned.
+    \item Designed the claims reconciliation service that settles insurer payments nightly,
+          replacing a manual process that took two staff three days each month.
+    \item Modelled the double-entry ledger in PostgreSQL and manage every schema change
+          through Liquibase, with migrations applied automatically on deploy.
+    \item Own the service in production, including the on-call rota, and cut its error
+          budget consumption by two thirds by making retries idempotent.
   \end{itemize}
-  \sub{Second Team or Side of the Role (Other, Technologies)}
+  \sub{Platform (Kubernetes, Terraform, GitHub Actions)}
   \begin{itemize}
-    \item Something you automated or improved, with the before and after made clear.
-    \item Something you owned end to end, including the part other people avoided.
+    \item Migrated fourteen services from hand-written manifests to Helm charts and
+          Terraform, bringing environment setup down from two days to under an hour.
+    \item Built the deployment pipeline the whole team now uses, with database migrations
+          and configuration applied in the correct order before the application starts.
   \end{itemize}
 
-  \role{Earlier Job Title}{Mon 20XX to Mon 20XX}{Earlier Company Name}{City, Country}
+  \role{Software Engineer}{Jul 2020 to Aug 2021}{Globex Telecom}{Manchester, United Kingdom}
   \begin{itemize}
-    \item What you shipped there, in one or two bullets. Older roles get less space.
-    \item Any award or recognition, with the awarding body named.
+    \item Built the self-service portal through which 200,000 customers manage their
+          contracts, in Angular and TypeScript against a Spring Boot API.
+    \item Introduced contract tests between the portal and three upstream services, ending
+          a recurring class of release-day outages.
   \end{itemize}
 }
 
 % ---- Projects (tailor per job; delete the section if you have none) ----
 \newcommand{\cvProjects}{%
-  \role{Project Name: What It Actually Does}{20XX to Present}{Context, for example MSc Research}{Location}
+  \role{Ledger-diff: Reconciliation Testing for Double-Entry Systems}{2025 to Present}{Open source}{github.com/jane-doe/ledger-diff}
   \begin{itemize}
-    \item The problem and your approach, naming the main technologies.
-    \item The interesting technical decision, in plain language. No jargon a
-          non-specialist reader cannot follow.
-    \item How you evaluated it, with plain numbers rather than statistics jargon.
+    \item Wrote a Java library that replays a ledger against an independent balance
+          calculation and reports the first divergent transaction.
+    \item Used in production by two teams at Northwind Health and by 30 other projects,
+          with the test suite running against PostgreSQL, MySQL and SQLite.
   \end{itemize}
 }
 
 % ---- Education ----
 \newcommand{\cvEducation}{%
-  \textbf{Your Degree, Specialisation}, \textit{\href{https://example.edu}{University Name}} \hfill {\color{muted}Mon 20XX to Present}\\
-  \textbf{Your Earlier Degree}, \textit{\href{https://example.edu}{University Name}} \hfill {\color{muted}20XX to 20XX}\\
-  Department Name | Classification, GPA: X.XX / X.XX
+  \textbf{MSc in Computer Science, Distributed Systems}, \textit{\href{https://example.edu}{University of Westbridge}} \hfill {\color{muted}2019 to 2020}\\
+  \textbf{BSc (Hons) in Software Engineering}, \textit{\href{https://example.edu}{University of Westbridge}} \hfill {\color{muted}2016 to 2019}\\
+  First Class Honours | Dissertation on consensus under partial network partitions
 }
 
 % ---- Skills (tailor per job) ----
-% Order each line so the most relevant item for this job comes first.
-\newcommand{\cvSkillLang}{Language, Language, Language}
-\newcommand{\cvSkillFw}{Framework, Framework, Framework}
-\newcommand{\cvSkillDb}{Database, Database}
-\newcommand{\cvSkillOps}{Tool, Tool, Tool, Tool}
-\newcommand{\cvSkillOther}{Concept, Concept, Concept}
+% Order every line so the most relevant item for this post comes first.
+\newcommand{\cvSkillLang}{Java, TypeScript, Python, SQL, Go}
+\newcommand{\cvSkillFw}{Spring Boot, Angular, Hibernate, JUnit 5, Testcontainers}
+\newcommand{\cvSkillDb}{PostgreSQL, Redis, MySQL}
+\newcommand{\cvSkillOps}{Kubernetes, Docker, Terraform, Kafka, Liquibase, GitHub Actions}
+\newcommand{\cvSkillOther}{Microservices, REST APIs, Event-Driven Architecture, OAuth 2.0, Observability}
 
 % ---- References ----
-% Ask permission before listing anyone, and do not put their phone number in a
-% file you might ever make public. Set both to empty to drop the section.
+% Ask permission before listing anyone, and never put their phone number in a file
+% that could become public. Set both to empty to drop the section.
 \newcommand{\cvRefereeA}{%
-  \textbf{Referee Name}\\
-  Their Job Title\\
-  Their Organisation\\
-  their.email@example.com
+  \textbf{Dr.\ Amara Osei}\\
+  Head of Engineering\\
+  Northwind Health\\
+  amara.osei@example.com
 }
 \newcommand{\cvRefereeB}{%
-  \textbf{Second Referee Name}\\
-  Their Job Title\\
-  Their Organisation\\
-  their.email@example.com
+  \textbf{Prof.\ Daniel Reyes}\\
+  Professor, Computer Science\\
+  University of Westbridge\\
+  d.reyes@example.edu
 }
 
 % ---- Cover letter (tailor per job) ----
-\newcommand{\cvCoverJobTitle}{Job Title}
-\newcommand{\cvCoverCompany}{Company Name}
-\newcommand{\cvCoverCity}{City, Country}
-\newcommand{\cvCoverRef}{Reference: N/A}
+\newcommand{\cvCoverJobTitle}{Senior Backend Engineer}
+\newcommand{\cvCoverCompany}{Acme Financial}
+\newcommand{\cvCoverCity}{London, United Kingdom}
+\newcommand{\cvCoverRef}{Reference: ACM-2291}
 \newcommand{\cvCoverBody}{%
-I am writing to apply for the \cvCoverJobTitle{} role at \cvCoverCompany. Open with
-one sentence on who you are: your current role, the kind of work you do, and anything
-you are studying.
+I am writing to apply for the \cvCoverJobTitle{} role at \cvCoverCompany. I am a Senior
+Software Engineer at Northwind Health, where I have spent four years building the billing
+and claims platform that settles insurer payments for 40 private clinics.
 
-Tailor this paragraph per job. Pick two or three items from your CV's Experience and
-Projects sections that most closely match the job post, and explain the connection in
-your own words rather than repeating the bullets.
+Your post asks for someone who has owned a payments system in production rather than only
+built one. At Northwind I designed the claims reconciliation service and carry the on-call
+pager for it, which is where I learned that idempotent retries matter more than throughput
+for anything touching money. The role also mentions Kafka and Kubernetes: I migrated our
+fourteen services onto Helm and Terraform last year, and the event-driven reconciliation
+flow is mine end to end.
 
-I would welcome the opportunity to discuss how my background fits this role. Thank you
-for considering my application.}
+I would welcome the opportunity to discuss how that experience fits what your team is
+building. Thank you for considering my application.}

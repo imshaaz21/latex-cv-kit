@@ -24,7 +24,9 @@
 \setlength{\parindent}{0pt}
 \titleformat{\section}{\normalsize\bfseries\color{accent}}{}{0pt}{\MakeUppercase}[{\color{accent}\vspace{1pt}\titlerule[0.6pt]}]
 \titlespacing*{\section}{0pt}{7pt}{3pt}
-\setlist[itemize]{leftmargin=1.1em,itemsep=0.5pt,topsep=1pt,parsep=0pt}
+% Ragged right in the body: with hyphenation off for ATS, justified text
+% stretches the word spacing badly. Headings keep \hfill for their dates.
+\setlist[itemize]{leftmargin=1.1em,itemsep=0.5pt,topsep=1pt,parsep=0pt,before=\raggedright}
 
 % \role{Title}{Dates}{Org}{Location}
 \newcommand{\role}[4]{%
@@ -47,7 +49,7 @@
 
 % ATS: standard, single-column section headings in the expected order.
 \section{Summary}
-\cvSummary
+{\raggedright\cvSummary\par}
 
 \section{Experience}
 \cvExperience

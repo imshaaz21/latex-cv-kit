@@ -40,6 +40,8 @@ done
 cvname=$(sed -n 's/^\\newcommand{\\cvName}{\(.*\)}[[:space:]]*$/\1/p' config.tex | head -1)
 slug=$(printf '%s' "${cvname:-CV}" | tr -d '\\' | sed -E 's/[^A-Za-z0-9]+/_/g; s/^_+|_+$//g')
 slug=${slug:-CV}
+[ "$cvname" = "Jane Doe" ] &&
+  echo "WARNING: config.tex still has the sample content, replace it before sending"
 
 # job-acme-backend becomes the suffix Acme_Backend. Done in bash rather than with
 # sed's \U, which is a GNU extension and fails on BSD sed.
