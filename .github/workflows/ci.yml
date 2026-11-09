@@ -24,6 +24,36 @@ jobs:
         shell: bash
         run: ./tests/workflow.sh
 
+  privacy:
+    name: Example data only
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Sample content must never contain a real person's details. Every address
+      # in the repository has to be a reserved example domain, so a contributor
+      # cannot paste their own in without CI noticing.
+      - name: Check every email address is an example domain
+        run: |
+          found=$(git grep -hoE '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' \
+            -- . ':!docs/*.png' | sort -u \
+            | grep -vE '@(example\.(com|edu|org|net)|users\.noreply\.github\.com)$' || true)
+          if [ -n "$found" ]; then
+            echo "Non-example email addresses found:"
+            echo "$found"
+            exit 1
+          fi
+          echo "Every address is a reserved example domain."
+      - name: Check commits carry no personal email address
+        run: |
+          found=$(git log --format='%ae%n%ce' | sort -u \
+            | grep -vE '@users\.noreply\.github\.com$' || true)
+          if [ -n "$found" ]; then
+            echo "Commits authored with a personal address:"
+            echo "$found"
+            exit 1
+          fi
+          echo "All commits use a noreply address."
+
   shellcheck:
     name: Lint the scripts
     runs-on: ubuntu-latest

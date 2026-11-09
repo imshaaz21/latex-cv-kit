@@ -181,10 +181,16 @@ fields and a few words changed, the profile it came from is wrong, not the job b
 Separate from editing someone's CV, if you are changing the scripts, the layout or the
 template:
 
-- `config.example.tex` is sample content and must stay fictional. It uses reserved
-  example domains and a reserved fictional phone number. Never put a real person's
-  details in it, and keep it building to one page, since the preview images in `docs/`
-  are rendered from it.
+- **Everything in this repository is example data.** No real person's name, email
+  address, phone number, employer or institution appears anywhere, including in the
+  README, the sample content, the preview images and the commit metadata. Email
+  addresses must use a reserved domain (`example.com`, `example.edu`), phone numbers a
+  reserved fictional range, and companies and universities must be invented. CI fails
+  the build if an address outside those domains appears, or if a commit is authored
+  with anything but a `users.noreply.github.com` address.
+- `config.example.tex` must keep building to one page, since the preview images in
+  `docs/` are rendered from it. Regenerate them with `docs/make-previews.py` after
+  changing the layout or the sample content.
 - Run `./tests/workflow.sh` after any change to `run.sh` or `track.sh`. It clones the
   committed state, so commit first. CI runs it on Linux, macOS and Windows.
 - Keep the scripts portable. No `sed -i` without an argument, no GNU-only `\U`, nothing
