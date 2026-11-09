@@ -65,8 +65,7 @@ build main.tex main.pdf "${slug}_CV" CV
 build cover_letter.tex cover_letter.pdf "${slug}_Cover_Letter" "Cover Letter"
 # Plain if, not an && chain: on main the chain short-circuits and its non-zero
 # status becomes the script's exit code, making a clean build look like a failure.
-if [ "$branch" != "main" ] && [ -f email.md ]; then
-  cp email.md "$dir/"
+if [ "$branch" != "main" ]; then
   echo "Saved to $dir/"
 fi
 
@@ -84,8 +83,5 @@ if [ "$upload" = 1 ]; then
   for f in "${outputs[@]}"; do
     tool rclone copy "$f" "$remote:$gdest/"
   done
-  if [ "$branch" != "main" ] && [ -f email.md ]; then
-    tool rclone copy email.md "$remote:$gdest/"
-  fi
   echo "Uploaded to $remote:$gdest/"
 fi

@@ -5,22 +5,21 @@ LaTeX CV and cover letter repo. Read this before editing.
 ## Layout
 
 - `config.tex` is all content (name, summary, experience bullets, projects, education,
-  skills, references, cover letter body). It is the only file that changes per job, and it
-  is gitignored. `config.example.tex` is the tracked template it is copied from.
+  skills, references, cover letter body). It is the only file that changes per job.
+  `config.example.tex` is the tracked template it is copied from. In a public clone
+  `config.tex` is gitignored; `./track.sh private` tracks it, for private repos only.
 - `main.tex` is CV layout only. Do not edit it for wording changes.
 - `cover_letter.tex` is cover letter layout, sharing `config.tex` for name and contact.
 - `run.sh` builds both, exports PDFs named from `\cvName` plus the branch suffix, and opens
   them. It runs `latexmk`, which reruns as needed. It warns if the CV exceeds one page or
   if any overfull boxes appear.
+- `track.sh` manages the branch strategy: `private`, `sent`, `log`, `sync`, `diff`, `open`.
 - `mise.toml` pins the TeX toolchain (TinyTeX) and rclone. `run.sh` shells out via
   `mise exec`, so the build does not depend on what happens to be on `PATH`.
 - `./run.sh --upload` also mirrors the outputs to a private rclone remote: `CV/` from
   `main`, `CV/<Company_Role>/` from a job branch. Plain `./run.sh` stays offline.
-- `email_template.md` is the generic application email. Each job branch copies it to
-  `email.md` and fills it in. Same content rules as the CV.
-- On a job branch, `run.sh` also copies the PDFs and `email.md` to
-  `applications/<Company_Role>/` (gitignored), so branch switches never overwrite an
-  earlier application.
+- On a job branch, `run.sh` also copies the PDFs to `applications/<Company_Role>/`
+  (gitignored), so branch switches never overwrite an earlier application.
 - PDFs and aux files are gitignored. Never hand-edit `main.pdf` or `cover_letter.pdf`.
 
 ## Toolchain
@@ -37,11 +36,25 @@ LaTeX CV and cover letter repo. Read this before editing.
 
 ## Branching
 
-- `main` is the base CV, kept to one page, with a generic cover letter placeholder.
-- Per job: `git checkout -b job-<company>` from `main`, edit `config.tex` only, commit.
-- Per job: also add `email.md` from `email_template.md` on the job branch.
-- A fix that is not job specific (layout bug, wrong technical fact) belongs on `main` too.
-  Do not let it live only on a job branch.
+Three tiers, and changes flow upward only. Never downward into something already sent.
+
+- **`main` is the facts.** Honest, complete, one page. The only branch actively
+  maintained. New job, corrected date, layout fix: it goes here.
+- **`profile/<archetype>` branches are long lived**, two to four of them, one per kind of
+  role rather than one per company. They hold presentation only: summary emphasis, skills
+  order, which bullets are included. Keep them rebased with `./track.sh sync`.
+- **`job-<company>-<role>` branches are disposable.** Branch from the closest profile,
+  edit `config.tex` only, build, send, then `./track.sh sent` to tag it `sent/<name>` and
+  delete the branch.
+
+Rules:
+
+- A sent application is a record. Never amend, rebase or merge into a `sent/*` tag, or the
+  proof of what was actually claimed is lost.
+- Anything not job specific found while tailoring must be cherry-picked to `main` before
+  the job branch is tagged, or it dies with the branch.
+- Do not create a profile per company. If a job branch needs more than cover letter fields
+  and a few words changed, the profile is wrong, not the job branch.
 
 ## Content rules
 
@@ -56,10 +69,14 @@ LaTeX CV and cover letter repo. Read this before editing.
 
 ## Privacy
 
-- `config.tex`, `email.md` and `applications/` are gitignored. Never add them to a public
-  remote, and never move their contents into a tracked file.
+- `config.tex` (unless deliberately tracked), `applications/` and any `email*.md` or
+  `notes*.md` are gitignored. Never add them to a public remote, and never move their
+  contents into a tracked file.
 - Never put a referee's phone number in the source, including in a `%` comment. Comments
   are invisible in the PDF but readable in the repository and in git history.
+- A repository that tracks `config.tex` must stay private permanently. Making it public
+  publishes every past version, and on GitHub rewritten history stays reachable through
+  the fork network.
 
 ## Build constraints
 

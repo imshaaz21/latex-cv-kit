@@ -1,8 +1,9 @@
 # --- Your personal data. Keep these out of the public template. ---
 # config.tex holds your name, contact details and CV content.
 config.tex
-# email.md is a filled-in application email: company, role, HR address.
-email.md
+# Any notes or emails you keep per application name the company and a contact.
+email*.md
+notes*.md
 # applications/<Company_Role>/ holds each application's built outputs.
 applications/
 
