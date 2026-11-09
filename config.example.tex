@@ -1,0 +1,118 @@
+% ============================================================
+%  CV CONTENT. Copy this file to config.tex and edit it.
+%
+%    cp config.example.tex config.tex
+%
+%  config.tex is gitignored, so your personal details never leave
+%  your machine by accident. See the Privacy section of README.md
+%  if you want to version your own CV in a private repository.
+%
+%  main.tex and cover_letter.tex are layout only. Everything a
+%  human reads is in this file, which is the only file you edit
+%  per job application.
+% ============================================================
+
+% ---- Personal ----
+\newcommand{\cvName}{Your Name}
+\newcommand{\cvTitle}{Your Job Title}
+\newcommand{\cvEmail}{you@example.com}
+\newcommand{\cvPhone}{+00 000 0000}
+\newcommand{\cvLocation}{City, Country}
+\newcommand{\cvGithub}{your-github-username}
+\newcommand{\cvLinkedin}{your-linkedin-slug}
+\newcommand{\cvPortfolio}{example.com}
+
+% ---- Summary (tailor per job) ----
+% Three or four lines. Mirror the language of the job post, but only
+% claim what the rest of the CV actually backs up.
+\newcommand{\cvSummary}{%
+One paragraph on who you are professionally: years of experience, the stack you
+work in, the domain you work in, and anything you are currently studying. Keep it
+to three or four lines so the first screen of the page is not all prose.}
+
+% ---- Experience (tailor per job) ----
+% \role{Title}{Dates}{Organisation}{Location}
+% \sub{Heading} starts a sub-section inside a role, for a project or a team.
+\newcommand{\cvExperience}{%
+  \role{Your Job Title}{Mon 20XX to Present}{Company Name}{City, Country}
+  {\small Previous title at the same company, Mon 20XX to Mon 20XX. One short
+   clause of context if the company is not well known.}\par
+  \sub{Team or Product Name (Key, Technologies, Here)}
+  \begin{itemize}
+    \item What you build and who uses it. Lead with the verb, name the technology,
+          and end with the outcome rather than the task.
+    \item A second bullet covering a different kind of work: an API, a data model,
+          a migration, a piece of production support.
+    \item Keep each bullet to two lines. Anything longer stops being scanned.
+  \end{itemize}
+  \sub{Second Team or Side of the Role (Other, Technologies)}
+  \begin{itemize}
+    \item Something you automated or improved, with the before and after made clear.
+    \item Something you owned end to end, including the part other people avoided.
+  \end{itemize}
+
+  \role{Earlier Job Title}{Mon 20XX to Mon 20XX}{Earlier Company Name}{City, Country}
+  \begin{itemize}
+    \item What you shipped there, in one or two bullets. Older roles get less space.
+    \item Any award or recognition, with the awarding body named.
+  \end{itemize}
+}
+
+% ---- Projects (tailor per job; delete the section if you have none) ----
+\newcommand{\cvProjects}{%
+  \role{Project Name: What It Actually Does}{20XX to Present}{Context, for example MSc Research}{Location}
+  \begin{itemize}
+    \item The problem and your approach, naming the main technologies.
+    \item The interesting technical decision, in plain language. No jargon a
+          non-specialist reader cannot follow.
+    \item How you evaluated it, with plain numbers rather than statistics jargon.
+  \end{itemize}
+}
+
+% ---- Education ----
+\newcommand{\cvEducation}{%
+  \textbf{Your Degree, Specialisation}, \textit{\href{https://example.edu}{University Name}} \hfill {\color{muted}Mon 20XX to Present}\\
+  \textbf{Your Earlier Degree}, \textit{\href{https://example.edu}{University Name}} \hfill {\color{muted}20XX to 20XX}\\
+  Department Name | Classification, GPA: X.XX / X.XX
+}
+
+% ---- Skills (tailor per job) ----
+% Order each line so the most relevant item for this job comes first.
+\newcommand{\cvSkillLang}{Language, Language, Language}
+\newcommand{\cvSkillFw}{Framework, Framework, Framework}
+\newcommand{\cvSkillDb}{Database, Database}
+\newcommand{\cvSkillOps}{Tool, Tool, Tool, Tool}
+\newcommand{\cvSkillOther}{Concept, Concept, Concept}
+
+% ---- References ----
+% Ask permission before listing anyone, and do not put their phone number in a
+% file you might ever make public. Set both to empty to drop the section.
+\newcommand{\cvRefereeA}{%
+  \textbf{Referee Name}\\
+  Their Job Title\\
+  Their Organisation\\
+  their.email@example.com
+}
+\newcommand{\cvRefereeB}{%
+  \textbf{Second Referee Name}\\
+  Their Job Title\\
+  Their Organisation\\
+  their.email@example.com
+}
+
+% ---- Cover letter (tailor per job) ----
+\newcommand{\cvCoverJobTitle}{Job Title}
+\newcommand{\cvCoverCompany}{Company Name}
+\newcommand{\cvCoverCity}{City, Country}
+\newcommand{\cvCoverRef}{Reference: N/A}
+\newcommand{\cvCoverBody}{%
+I am writing to apply for the \cvCoverJobTitle{} role at \cvCoverCompany. Open with
+one sentence on who you are: your current role, the kind of work you do, and anything
+you are studying.
+
+Tailor this paragraph per job. Pick two or three items from your CV's Experience and
+Projects sections that most closely match the job post, and explain the connection in
+your own words rather than repeating the bullets.
+
+I would welcome the opportunity to discuss how my background fits this role. Thank you
+for considering my application.}

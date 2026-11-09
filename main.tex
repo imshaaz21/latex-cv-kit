@@ -1,0 +1,77 @@
+% ============================================================
+%  CV LAYOUT ONLY. All content lives in config.tex.
+%  Edit this file to change how the CV looks, never what it says.
+% ============================================================
+\documentclass[10pt,a4paper]{article}
+\usepackage[hmargin=1.4cm,vmargin=0.95cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{charter}
+\usepackage{xcolor}
+\usepackage{titlesec,enumitem}
+\usepackage[hidelinks]{hyperref}
+% ATS: map glyphs to Unicode so text extracted from the PDF is clean.
+% These are pdfTeX primitives, so the engine must stay pdflatex.
+\input{glyphtounicode}
+\pdfgentounicode=1
+\input{config}
+
+\definecolor{accent}{HTML}{1F4E79}
+\definecolor{muted}{HTML}{555555}
+\pagestyle{empty}
+% ATS: never hyphenate, so a parser cannot read "microser-vices" as two words.
+\hyphenpenalty=10000 \exhyphenpenalty=10000 \emergencystretch=3em
+\setlength{\parindent}{0pt}
+\titleformat{\section}{\normalsize\bfseries\color{accent}}{}{0pt}{\MakeUppercase}[{\color{accent}\vspace{1pt}\titlerule[0.6pt]}]
+\titlespacing*{\section}{0pt}{7pt}{3pt}
+\setlist[itemize]{leftmargin=1.1em,itemsep=0.5pt,topsep=1pt,parsep=0pt}
+
+% \role{Title}{Dates}{Org}{Location}
+\newcommand{\role}[4]{%
+  \par\addvspace{3pt}%
+  \textbf{#1}\hfill {\color{muted}#2}\\
+  {\color{muted}\textit{#3, #4}}\par}
+% \sub{Heading} for sub-sections inside a role
+\newcommand{\sub}[1]{\par\addvspace{2pt}\textbf{\textit{#1}}\par}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries\color{accent} \cvName}\\[2pt]
+  {\color{muted}\cvTitle}\\[3pt]
+  \small \cvEmail{} | \cvPhone{} | \cvLocation\\
+  \href{https://github.com/\cvGithub}{github.com/\cvGithub} |
+  \href{https://linkedin.com/in/\cvLinkedin}{linkedin.com/in/\cvLinkedin} |
+  \href{https://\cvPortfolio}{\cvPortfolio}
+\end{center}
+
+% ATS: standard, single-column section headings in the expected order.
+\section{Summary}
+\cvSummary
+
+\section{Experience}
+\cvExperience
+
+\section{Projects}
+\cvProjects
+
+\section{Education}
+\cvEducation
+
+\section{Skills}
+\textbf{Languages:} \cvSkillLang\\
+\textbf{Frameworks:} \cvSkillFw\\
+\textbf{Databases:} \cvSkillDb\\
+\textbf{DevOps and Tools:} \cvSkillOps\\
+\textbf{Other:} \cvSkillOther
+
+% Side-by-side minipages, not a table: ATS parsers read these in order.
+\section{References}
+\begin{minipage}[t]{0.5\linewidth}
+\cvRefereeA
+\end{minipage}%
+\begin{minipage}[t]{0.5\linewidth}
+\cvRefereeB
+\end{minipage}
+
+\end{document}

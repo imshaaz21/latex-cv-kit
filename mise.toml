@@ -1,0 +1,5 @@
+[tools]
+# Pinned so the CV renders identically on any machine and in CI.
+tinytex = "2026.11"
+# Upload helper only, no effect on the PDFs, so it tracks latest.
+rclone = "latest"
