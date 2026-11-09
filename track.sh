@@ -9,7 +9,7 @@
 #   ./track.sh diff <name>          what you claimed there against your CV today
 #   ./track.sh open <name>          restore a sent application to a branch for reuse
 set -u
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" || exit 1
 
 die() { echo "$*" >&2; exit 1; }
 exists() { git rev-parse -q --verify "$1" >/dev/null; }

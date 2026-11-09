@@ -38,7 +38,9 @@ done
 # Output filenames follow \cvName from config.tex, so nothing is hardcoded to one
 # person. Non-alphanumerics collapse to underscores.
 cvname=$(sed -n 's/^\\newcommand{\\cvName}{\(.*\)}[[:space:]]*$/\1/p' config.tex | head -1)
-slug=$(printf '%s' "${cvname:-CV}" | tr -d '\\' | sed -E 's/[^A-Za-z0-9]+/_/g; s/^_+|_+$//g')
+slug=${cvname:-CV}
+slug=${slug//\\/}
+slug=$(printf '%s' "$slug" | sed -E 's/[^A-Za-z0-9]+/_/g; s/^_+|_+$//g')
 slug=${slug:-CV}
 [ "$cvname" = "Jane Doe" ] &&
   echo "WARNING: config.tex still has the sample content, replace it before sending"
