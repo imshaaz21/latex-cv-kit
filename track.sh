@@ -33,7 +33,10 @@ private)
     read -r a
     case "$a" in y|Y) ;; *) die "Aborted." ;; esac
   fi
-  sed -i '/^config\.tex$/d' .gitignore
+  # Drop the whole marked block, so no orphaned comment is left behind. Written
+  # with awk rather than sed -i, which needs an argument on BSD sed.
+  awk '/^# BEGIN private$/{skip=1} !skip; /^# END private$/{skip=0}' .gitignore \
+    > .gitignore.new && mv .gitignore.new .gitignore
   [ -f config.tex ] || cp config.example.tex config.tex
   git add .gitignore config.tex
   echo "config.tex is now tracked. Commit it, and keep this repository private."

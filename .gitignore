@@ -1,6 +1,10 @@
-# --- Your personal data. Keep these out of the public template. ---
-# config.tex holds your name, contact details and CV content.
+# --- Your personal data ---
+# BEGIN private
+# config.tex holds your name, contact details and CV content, so it is ignored by
+# default. './track.sh private' removes this block to track it, which is only safe
+# in a private repository.
 config.tex
+# END private
 # Any notes or emails you keep per application name the company and a contact.
 email*.md
 notes*.md
