@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  workflow:
+    name: Branch workflow (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      # Needs only git and bash, so it is the cross-platform check: macOS catches
+      # BSD userland differences, Windows runs it under Git Bash.
+      - name: Run the workflow test suite
+        shell: bash
+        run: ./tests/workflow.sh
+
+  shellcheck:
+    name: Lint the scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: shellcheck run.sh track.sh tests/workflow.sh
+
+  build:
+    name: Build the example documents
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install TeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            texlive-latex-base texlive-latex-recommended texlive-latex-extra \
+            texlive-fonts-recommended latexmk poppler-utils
+      - name: Build the sample CV and cover letter
+        run: |
+          cp config.example.tex config.tex
+          ./run.sh
+      - name: Check the extracted text is clean for ATS parsers
+        run: |
+          text=$(pdftotext Jane_Doe_CV.pdf -)
+          for heading in SUMMARY EXPERIENCE PROJECTS EDUCATION SKILLS REFERENCES; do
+            echo "$text" | grep -q "^$heading$" || { echo "Missing heading: $heading"; exit 1; }
+          done
+          # A trailing hyphen means a word was split across lines, which parsers
+          # read as two words. Written as an if, because under 'bash -e' a failing
+          # '&&' list exits the step even when the failure is the expected result.
+          if echo "$text" | grep -qE '[a-z]-$'; then
+            echo "Hyphenated line break found"
+            exit 1
+          fi
+          echo "Headings present and no hyphenated line breaks."
+      - uses: actions/upload-artifact@v4
+        with:
+          name: example-documents
+          path: "*.pdf"
+          if-no-files-found: error

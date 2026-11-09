@@ -161,19 +161,45 @@ Three tiers. Changes flow upward only, never down into something already sent.
 | `job-<company>-<role>` | days | one application, then tagged and deleted |
 
 ```bash
-./track.sh sent          # tag the current job branch sent/<name>, then delete it
-./track.sh log           # applications sent, newest first
-./track.sh sync          # rebase every profile/* onto main
-./track.sh diff <name>   # what was claimed there against the CV today
-./track.sh open <name>   # restore a sent application to a branch for reuse
+./track.sh start <name> [base]   # branch job-<name> from base, default main
+./track.sh sent                  # tag the current job branch, then delete it
+./track.sh log                   # applications sent, newest first
+./track.sh sync                  # rebase every profile/* onto main
+./track.sh diff <name>           # what was claimed there against the CV today
+./track.sh open <name>           # restore a sent application to a branch for reuse
 ```
+
+Start an application with `./track.sh start`, not with `git checkout -b`. It refuses a
+name already used, checks that `config.tex` is tracked, and branches from the profile you
+name rather than from whatever happens to be checked out.
 
 Do not create a profile per company. If a job branch needs more than the cover letter
 fields and a few words changed, the profile it came from is wrong, not the job branch.
 
+## Changing the repository itself
+
+Separate from editing someone's CV, if you are changing the scripts, the layout or the
+template:
+
+- `config.example.tex` is sample content and must stay fictional. It uses reserved
+  example domains and a reserved fictional phone number. Never put a real person's
+  details in it, and keep it building to one page, since the preview images in `docs/`
+  are rendered from it.
+- Run `./tests/workflow.sh` after any change to `run.sh` or `track.sh`. It clones the
+  committed state, so commit first. CI runs it on Linux, macOS and Windows.
+- Keep the scripts portable. No `sed -i` without an argument, no GNU-only `\U`, nothing
+  that assumes GNU coreutils. Contributors run macOS and Git Bash.
+- Under `bash -e`, a failing `a && b` list exits the script even when the failure is the
+  expected outcome. Write those as `if`, which is why `run.sh` does.
+- Do not add a task runner, Makefile or justfile. The two scripts are the interface, and
+  a third file wrapping them is indirection rather than convenience.
+
 ## Build constraints
 
 - `main` stays one page.
+- Body text is ragged right on purpose: with hyphenation disabled for ATS, justified text
+  stretches the word spacing badly. Do not reinstate justification, and do not reinstate
+  hyphenation to make justification work.
 - A job branch may run to two pages if the user asks for it, but a role or section must
   never split across the page break. Wrap it in a `minipage` if it is at risk.
 - The engine must stay pdfTeX. `\input{glyphtounicode}` and `\pdfgentounicode=1` are

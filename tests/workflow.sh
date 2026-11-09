@@ -51,7 +51,11 @@ check "a second start under the same name is refused" "$(refuses ./track.sh star
 
 echo "Keeping profiles current"
 git checkout -q -b profile/backend
-printf '%% backend profile\n' >> config.tex
+# Edit a different part of the file from the change on main below, so the rebase
+# is a clean fast-forward rather than a conflict.
+perl -0pi -e 's/^(\\newcommand\{\\cvSkillLang\}).*/$1\{Java, Go\}/m' config.tex 2>/dev/null ||
+  sed -i.bak 's/^\\newcommand{\\cvSkillLang}.*/\\newcommand{\\cvSkillLang}{Java, Go}/' config.tex
+rm -f config.tex.bak
 git commit -q -am "Backend profile"
 git checkout -q main
 printf '%% new role on main\n' >> config.tex
